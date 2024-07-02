@@ -1,0 +1,20 @@
+services:
+  node-web:
+    image: nginx:latest
+    ports:
+        - "8081:80"
+        - "8082:443"
+    volumes:
+        - ./app:/var/www/html/app
+        - ./nginx-config/site.conf:/etc/nginx/conf.d/site.conf
+    links:
+        - node-app
+  node-app: 
+    container_name: nextjs-app
+    build: .
+    # dev
+    volumes:
+      - ./app:/var/www/html/app
+    tty: true
+    # ports:
+    #   - "3000:3000"
